@@ -1,0 +1,14 @@
+--a1b2c3d--2026-11-20--Ada Lovelace
+12	3	src/app.py
+-	-	assets/logo.png
+4	0	src/{old => new}/util.py
+
+--e4f5a6b--2026-11-19--Alan Turing
+1	1	README.md
+5	2	docs/guide.md => docs/manual.md
+
+--c7d8e9f--2026-11-18--Ada Lovelace
+7	0	src/app.py
+0	0	lib/{ => core}/helpers.py
+
+--0a1b2c3--2026-11-17--Grace Hopper
