@@ -17,3 +17,12 @@ class Commit:
     date: date
     author: str
     changes: tuple[FileChange, ...]
+
+
+@dataclass(frozen=True)
+class HotspotResult:
+    path: str
+    revisions: int
+    churn: int
+    size: int
+    score: int
