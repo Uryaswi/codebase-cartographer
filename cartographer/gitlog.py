@@ -76,3 +76,17 @@ def resolve_rename(path: str) -> str:
     if " => " in path:
         return path.split(" => ", maxsplit=1)[1]
     return path
+
+
+def repo_root(repo_path: str | Path = ".") -> Path:
+    """Top-level directory of the repository containing repo_path.
+
+    git log paths are relative to this root, not to repo_path.
+    """
+    result = subprocess.run(
+        ["git", "-C", str(repo_path), "rev-parse", "--show-toplevel"],
+        capture_output=True,
+        text=True,
+        check=True,
+    )
+    return Path(result.stdout.strip())
