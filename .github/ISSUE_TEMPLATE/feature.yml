@@ -1,0 +1,38 @@
+name: Feature / acceptance criterion
+description: A PRD feature or a single acceptance criterion to implement
+labels: [enhancement]
+body:
+  - type: input
+    id: prd
+    attributes:
+      label: PRD reference
+      description: Feature and criterion in docs/PRD.md
+      placeholder: F3 / AC2
+    validations:
+      required: true
+  - type: textarea
+    id: behavior
+    attributes:
+      label: Expected behavior
+      description: Copy or paraphrase the acceptance criterion.
+    validations:
+      required: true
+  - type: dropdown
+    id: workflow
+    attributes:
+      label: Workflow
+      options:
+        - Explore → Plan → Implement → Commit
+        - Strict TDD (RED → GREEN → REFACTOR)
+        - Regular change
+    validations:
+      required: true
+  - type: textarea
+    id: done
+    attributes:
+      label: Definition of done
+      value: |
+        - [ ] Tests written and passing (`pytest -q`)
+        - [ ] `ruff check .` and `ruff format --check .` clean
+        - [ ] Analysis code stays pure (no subprocess / file I/O in `cartographer/analysis/`)
+        - [ ] Conventional Commit messages
