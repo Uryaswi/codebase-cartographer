@@ -1,40 +1,16 @@
-import subprocess
 from pathlib import Path
 
 import pytest
 
 from cartographer.cli import main
-
-
-def _git(repo: Path, *args: str) -> None:
-    subprocess.run(["git", "-C", str(repo), *args], check=True, capture_output=True)
-
-
-def _commit(repo: Path, author: str, day: str, files: dict[str, str]) -> None:
-    for name, content in files.items():
-        path = repo / name
-        path.parent.mkdir(parents=True, exist_ok=True)
-        path.write_text(content)
-    _git(repo, "add", ".")
-    _git(
-        repo,
-        "-c",
-        f"user.name={author}",
-        "-c",
-        "user.email=test@example.com",
-        "commit",
-        "-q",
-        "-m",
-        "change",
-        f"--date={day}T12:00:00",
-    )
+from tests.cli.gitrepo import commit_files, git
 
 
 @pytest.fixture
 def repo(tmp_path: Path) -> Path:
-    _git(tmp_path, "init", "-q")
-    _commit(tmp_path, "Ada", "2026-01-01", {"a.py": "1\n", "src/b.py": "1\n"})
-    _commit(tmp_path, "Alan", "2026-02-01", {"a.py": "1\n2\n"})
+    git(tmp_path, "init", "-q")
+    commit_files(tmp_path, "Ada", "2026-01-01", {"a.py": "1\n", "src/b.py": "1\n"})
+    commit_files(tmp_path, "Alan", "2026-02-01", {"a.py": "1\n2\n"})
     return tmp_path
 
 
